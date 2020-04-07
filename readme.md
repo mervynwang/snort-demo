@@ -32,3 +32,4 @@
 # recommended talks
 
 - [Martin Roesch | From The Garage To NASDAQ With Open Source The Sourcefire Experience](https://www.youtube.com/watch?v=nfHyN4O9VyY)
+- [Origin Code](https://github.com/bmedicke/snort-demo)
