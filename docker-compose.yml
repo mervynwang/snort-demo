@@ -1,0 +1,26 @@
+version: '2'
+services:
+
+  red:
+    build: .
+    hostname: red
+    command: tail -f /dev/null
+    volumes:
+      - ./bashrc:/root/.bashrc
+      - ./inputrc:/root/.inputrc
+      - ./tmux_red:/root/.tmux.conf
+    environment:
+      - TZ=Europe/Berlin
+
+  blue:
+    build: .
+    hostname: blue
+    command: tail -f /dev/null
+    volumes:
+      - ./bashrc:/root/.bashrc
+      - ./inputrc:/root/.inputrc
+      - ./tmux_blue:/root/.tmux.conf
+      - ./snort.conf:/etc/snort/snort.conf
+      - ./sshd_config:/etc/ssh/sshd_config
+    environment:
+      - TZ=Europe/Berlin

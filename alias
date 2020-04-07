@@ -1,0 +1,2 @@
+alias red="docker-compose exec red /bin/bash -c 'tmux a || tmux'"
+alias blue="docker-compose exec blue /bin/bash -c 'tmux a || tmux'"
