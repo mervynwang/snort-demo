@@ -23,8 +23,12 @@
 
 - start probing the blue host and see what happens
 - things to try:
-  - `ping -c1 blue` send single ping probe
-  - `nmap -sV blue` version detection scan
+  - alias a1 `nmap -sV blue` version detection scan
+  - alias a2 `ping -c1 blue` send single ping probe
+  - alias a3 `curl -i -L http://blue/pm.php` 
+  - alias a4 `curl -i -L http://blue -X POST` 
+  - alias a5 `hydra -l root -P /500-worst-passwords.txt blue mysql` 
+
 
 # recommended talks
 
