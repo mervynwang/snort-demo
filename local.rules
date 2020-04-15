@@ -60,3 +60,8 @@ reject tcp $EXTERNAL_NET any <> $HTTP_SERVERS $HTTP_PORTS (\
 alert tcp any any -> any 22 (msg:'SSH msg detected'; sid:2;)
 alert tcp any any -> any 22 (msg:"Possible SSH brute forcing!"; flags: S+; threshold: type both, track by_src, count 5, seconds 30; sid:10000001; rev: 1;)
 
+
+
+alert tcp any any -> any 3306 (msg:"Possible Mysql brute forcing!"; flags: S+; threshold: type both, track by_src, count 5, seconds 30; sid:10003306; rev: 1;)
+
+
