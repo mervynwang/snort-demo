@@ -22,23 +22,9 @@ services:
       - ./bashrc:/root/.bashrc
       - ./inputrc:/root/.inputrc
       - ./tmux_blue:/root/.tmux.conf
-      - ./snort_web.conf:/etc/snort/snort.conf
+      - ./snort.conf:/etc/snort/snort.conf
+      - ./snort_ips.conf:/etc/snort/snort_ips.conf
+      - ./local.rules:/etc/snort/rules/local.rules
     environment:
       - TZ=Asia/Taipei
       - MYSQL_PASS="MYSQLPW"
-
-  blue2:
-    build: .
-    hostname: blue2
-    command: tail -f /dev/null
-    volumes:
-      - ./bashrc:/root/.bashrc
-      - ./inputrc:/root/.inputrc
-      - ./tmux_blue:/root/.tmux.conf
-      - ./snort_web.conf:/etc/snort/snort.conf
-      - ./sshd_config:/etc/ssh/sshd_config
-    environment:
-      - TZ=Asia/Taipei
-
-
-

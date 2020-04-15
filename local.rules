@@ -1,0 +1,62 @@
+
+
+alert icmp any any -> any any (msg:'ICMP msg detected00'; sid:1;)
+
+alert tcp $EXTERNAL_NET any -> $HOME_NET 161 (msg:"SNMP request tcp"; flow:stateless; reference:bugtraq,4088; reference:bugtraq,4089; reference:bugtraq,4132; reference:cve,2002-0012; reference:cve,2002-0013; classtype:attempted-recon; sid:1418; rev:11;)
+
+
+
+# alert tcp $EXTERNAL_NET any -> $HTTP_SERVERS $HTTP_PORTS (flow:to_server;msg:'http'; sid:2;)
+
+# alert tcp any any -> any $HTTP_PORTS (flow:to_server;msg:'http4'; sid:4;)
+
+
+# alert tcp $EXTERNAL_NET any -> $HTTP_SERVERS $HTTP_PORTS (msg:'COMMUNITY WEB-PHP DeluxeBB pm.php access'; flow:to_server; uricontent:"/pm.php"; sid:100099998;)
+
+alert tcp $EXTERNAL_NET any -> $HTTP_SERVERS $HTTP_PORTS (msg:'dvwa exec'; \
+flow:established, to_server; \
+content:"POST"; http_method; \
+uricontent:"/vulnerabilities/exec/"; \
+sid:100099900;)
+
+#alert tcp $EXTERNAL_NET any -> $HTTP_SERVERS 80 (flow:established, to_server; \
+#    uricontent:"POST"; http_method;\
+#    msg:'http POST';sid:3;)
+
+# alert tcp $EXTERNAL_NET any -> $HTTP_SERVERS 80 (flow:established, to_server;\
+#     uricontent:"GET"; http_method;\
+#     msg:'http uricontent GET 80';\
+#     sid:10;\
+#     )
+
+# alert tcp $EXTERNAL_NET any -> $HTTP_SERVERS any (flow:established, to_server;\
+#     content:"GET"; http_method;\
+#     msg:'http content  GET any';\
+#     sid:11;\
+#     )
+
+
+
+
+# alert tcp $EXTERNAL_NET any <> $HTTP_SERVERS $HTTP_PORTS (flow:to_server;content:"curl"; \
+#     msg:'curl access';http_header;\
+#      nocase; \
+#      sid:3; gid:1000001\
+#      )
+
+# alert tcp $EXTERNAL_NET any <> $HTTP_SERVERS $HTTP_PORTS (flow:to_server;content:"curl"; \
+#     msg:'curl access';http_header;\
+#      nocase; \
+#      sid:3; gid:1000001\
+#      )
+
+reject tcp $EXTERNAL_NET any <> $HTTP_SERVERS $HTTP_PORTS (\
+    flow:established, to_server;\
+    uricontent:"pm.php"; \
+    msg:'pm.php';  nocase; sid:14;)
+
+# alert tcp $EXTERNAL_NET any <> $HTTP_SERVERS $HTTP_PORTS ( content:"pm.php"; msg:'pm.php'; http_header; nocase; sid:5;)
+
+alert tcp any any -> any 22 (msg:'SSH msg detected'; sid:2;)
+alert tcp any any -> any 22 (msg:"Possible SSH brute forcing!"; flags: S+; threshold: type both, track by_src, count 5, seconds 30; sid:10000001; rev: 1;)
+
